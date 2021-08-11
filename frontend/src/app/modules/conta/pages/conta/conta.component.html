@@ -1,0 +1,60 @@
+<div class="mt-5">
+    <div class="row form-group">
+        <div class="col-6">
+            <label>Tipo Conta</label>
+            <select class="form-control" [(ngModel)]="tipoContaSelected" (change)="buscarTipoConta($event)">
+                <option></option>
+                <option>CORRENTE</option>
+                <option>POUPANCA</option>
+            </select>
+        </div>
+        <div class="col-6 add-button">
+            <button type="button" class="btn btn-outline-success ml-2" data-toggle="modal" [attr.data-target]="'#add'">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+            <berkan-modal  [target]="'add'" button="Adicionar">
+                <berkan-conta-formulario [conta]="newConta" [form]="formOptions.ADD" (action)="add($event)"></berkan-conta-formulario>
+            </berkan-modal>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 120px;"></th>
+                <th>Código</th>
+                <th>Tipo</th>
+                <th>Titular</th>
+                <th>Saldo</th>
+                <th>Limite Empréstimo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let conta of contas$ | async; let i = index">
+                <td>
+                    <button type="button" class="btn bg-transparent ml-2" data-toggle="modal" [attr.data-target]="'#edit' + conta.codigo">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn bg-transparent ml-2" data-toggle="modal" [attr.data-target]="'#delete' + conta.codigo">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+
+                    <berkan-modal [target]="'edit' + conta.codigo" button="Editar">
+                        <berkan-conta-formulario [conta]="conta" [form]="formOptions.EDIT" (action)="edit($event)">
+                        </berkan-conta-formulario>
+                    </berkan-modal>
+
+                    <berkan-modal [target]="'delete' + conta.codigo" button="Deletar">
+                        <berkan-conta-formulario [conta]="conta" [form]="formOptions.DELETE" (action)="delete($event)">
+                        </berkan-conta-formulario>
+                    </berkan-modal>
+                </td>
+                <td>{{ conta.codigo }}</td>
+                <td>{{ conta.tipo_conta }}</td>
+                <td>{{ conta.titular }}</td>
+                <td>{{ conta.saldo ? ( conta.saldo | currency: "BRL" ) : '-' }}</td>
+                <td>{{ conta.limite_emprestimo ? ( conta.limite_emprestimo  | currency: "BRL") : "-" }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

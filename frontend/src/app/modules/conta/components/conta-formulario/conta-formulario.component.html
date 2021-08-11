@@ -1,0 +1,48 @@
+<form [formGroup]="contaFormGroup" (ngSubmit)="emitEvent()" novalidate>
+    <div class="form-group">
+        <label>Código</label>
+        <input type="text" class="form-control" formControlName="codigo" />
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label>Tipo Conta</label>
+        <select class="form-control" formControlName="tipo_conta" (change)="verificarLimiteEmprestimo()">
+            <option></option>
+            <option>CORRENTE</option>
+            <option>POUPANCA</option>
+        </select>
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label>Titular</label>
+        <input type="text" class="form-control" formControlName="titular" /><span></span>
+    </div>
+    <div class="form-group">
+        <label>Saldo</label>
+        <input type="number" class="form-control" formControlName="saldo" /><span></span>
+    </div>
+    <div class="form-group">
+        <label>Limite Emprestimo</label>
+        <input type="number" class="form-control" formControlName="limite_emprestimo" /><span></span>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cancelar
+        </button>
+
+        <ng-container [ngSwitch]="form">
+            <button *ngSwitchCase="formOptions.ADD" type="submit" [disabled]="contaFormGroup.invalid" class="btn btn-success">
+                Adicionar
+            </button>
+            <button *ngSwitchCase="formOptions.EDIT" type="submit" [disabled]="contaFormGroup.invalid" class="btn btn-info">
+                Editar
+            </button>
+            <button *ngSwitchCase="formOptions.DELETE" type="submit" [disabled]="contaFormGroup.invalid" class="btn btn-danger">
+                Deletar
+            </button>
+        </ng-container>
+
+    </div>
+
+</form>

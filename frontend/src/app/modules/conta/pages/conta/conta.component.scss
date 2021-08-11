@@ -1,0 +1,8 @@
+.add-button {
+  position: relative;
+}
+.add-button > button {
+  position: absolute;
+  bottom: 0;
+  right: 15px; //col-6 padding-right is 15px
+}
