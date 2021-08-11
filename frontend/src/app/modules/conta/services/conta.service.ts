@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conta } from '../models/conta.model';
 
-const URL = '/api/conta';
+const URL = 'https://desafio-berkan.herokuapp.com/api/conta';
 
 const CONTAS = [
   {
